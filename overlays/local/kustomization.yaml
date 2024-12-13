@@ -13,4 +13,4 @@ patches:
     patch: |
       - op: add
         path: /spec/listeners/0/hostname
-        value: *.localhost
+        value: "*.localhost"
