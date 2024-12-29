@@ -3,9 +3,9 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: external-http-gateway
-  namespace: traefik
+  namespace: istio-ingress
 spec:
-  gatewayClassName: traefik
+  gatewayClassName: istio
   listeners:
     - name: http
       protocol: HTTP

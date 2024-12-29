@@ -9,7 +9,7 @@ patches:
   - target:
       kind: Gateway
       name: external-http-gateway
-      namespace: kube-system
+      namespace: istio-ingress
     patch: |
       - op: add
         path: /spec/listeners/0/hostname
