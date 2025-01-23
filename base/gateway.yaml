@@ -12,6 +12,7 @@ spec:
       port: 80
       allowedRoutes:
         kinds:
-          - kind: HTTPRoute
+          - group: gateway.networking.k8s.io
+            kind: HTTPRoute
         namespaces:
           from: All
