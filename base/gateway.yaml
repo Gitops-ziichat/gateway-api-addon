@@ -1,28 +1,18 @@
-apiVersion: networking.istio.io/v1beta1
+---
+apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  generation: 1
-  name: zii-gateway
-  namespace: commands
+  name: external-http-gateway
+  namespace: istio-ingress
 spec:
-  selector:
-    istio: ingressgateway
-  servers:
-    - hosts:
-        - api-dev.ziichat.dev
-      port:
-        name: ziichat-media-http
-        number: 80
-        protocol: HTTP
-    - hosts:
-        - filestore-dev.ziichat.dev
-      port:
-        name: ziichat-filestore-http
-        number: 80
-        protocol: HTTP
-    - hosts:
-        - dev.zii.chat
-      port:
-        name: zii.chat-shortlink-http
-        number: 80
-        protocol: HTTP
+  gatewayClassName: istio
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        kinds:
+          - group: gateway.networking.k8s.io
+            kind: HTTPRoute
+        namespaces:
+          from: All
