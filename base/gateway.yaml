@@ -9,14 +9,17 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.zacdn.net"  # Có thể bỏ nếu chấp nhận tất cả domain
+      hostname: "*.zacdn.net"
       tls:
         mode: Terminate
         certificateRefs:
-            name: zacdn-tls
+          - name: zacdn-tls
+            kind: Secret
+            group: ""
             namespace: istio-ingress
-      routes:
-        kind: HTTPRoute
-        selector:
-          matchLabels:
-            gateway: "external-https-gateway"
+      allowedRoutes:
+        kinds:
+          - kind: HTTPRoute
+            group: gateway.networking.k8s.io
+        namespaces:
+          from: All
