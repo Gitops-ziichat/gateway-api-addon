@@ -13,12 +13,10 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - kind: Secret
             name: zacdn-tls
             namespace: istio-ingress
-      allowedRoutes:
-        kinds:
-          - group: gateway.networking.k8s.io
-            kind: HTTPRoute
-        namespaces:
-          from: All
+      routes:
+        kind: HTTPRoute
+        selector:
+          matchLabels:
+            gateway: "external-https-gateway"
