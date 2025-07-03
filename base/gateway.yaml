@@ -1,15 +1,21 @@
----
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: external-http-gateway
+  name: external-https-gateway
   namespace: istio-ingress
 spec:
   gatewayClassName: istio
   listeners:
-    - name: http
-      protocol: HTTP
-      port: 80
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.zacdn.net"  # Có thể bỏ nếu chấp nhận tất cả domain
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: zacdn-tls
+            namespace: istio-ingress
       allowedRoutes:
         kinds:
           - group: gateway.networking.k8s.io
