@@ -19,15 +19,15 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "argocd-sandbox.zacdn.net"  # Hoặc bỏ nếu không cần lọc host
+      hostname: "argocd-sandbox.zacdn.net"
       tls:
         mode: Terminate
         certificateRefs:
-          - kind: Secret
-            name: zacdn-tls
-            namespace: istio-ingress
-      routes:
-        kind: HTTPRoute
-        selector:
-          matchLabels:
-            gateway: https-gateway
+          - name: zacdn-tls
+            kind: Secret
+      allowedRoutes:
+        kinds:
+          - kind: HTTPRoute
+            group: gateway.networking.k8s.io
+        namespaces:
+          from: All
