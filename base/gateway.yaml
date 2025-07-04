@@ -21,7 +21,7 @@ spec:
       port: 443
       hostname: "*.zacdn.net"  # Hoặc bỏ nếu không cần lọc host
       tls:
-        mode: Passthrough
+        mode: Terminate
         certificateRefs:
           - kind: Secret
             name: zacdn-tls
