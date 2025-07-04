@@ -1,4 +1,3 @@
----
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
@@ -10,6 +9,23 @@ spec:
     - name: http
       protocol: HTTP
       port: 80
+      allowedRoutes:
+        kinds:
+          - group: gateway.networking.k8s.io
+            kind: HTTPRoute
+        namespaces:
+          from: All
+
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.zacdn.net"  # Hoặc bỏ nếu không cần lọc host
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: zacdn-tls
+            namespace: istio-ingress
       allowedRoutes:
         kinds:
           - group: gateway.networking.k8s.io
