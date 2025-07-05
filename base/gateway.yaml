@@ -15,10 +15,10 @@ spec:
             kind: HTTPRoute
         namespaces:
           from: All
+          
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.zacdn.net"  # Hoặc bỏ nếu không cần lọc host
       tls:
         mode: Terminate
         certificateRefs:
