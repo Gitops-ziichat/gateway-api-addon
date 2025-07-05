@@ -15,18 +15,20 @@ spec:
             kind: HTTPRoute
         namespaces:
           from: All
-          
+
     - name: https
       protocol: HTTPS
       port: 443
+      hostname: "*.zacdn.net"  # Có thể tùy môi trường
       tls:
         mode: Terminate
         certificateRefs:
           - kind: Secret
             name: zacdn-tls
             namespace: istio-ingress
-      routes:
-        kind: HTTPRoute
-        selector:
-          matchLabels:
-            gateway: https-gateway
+      allowedRoutes:
+        kinds:
+          - group: gateway.networking.k8s.io
+            kind: HTTPRoute
+        namespaces:
+          from: All
