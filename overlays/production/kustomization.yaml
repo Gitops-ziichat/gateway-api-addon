@@ -4,28 +4,3 @@ kind: Kustomization
 
 resources:
   - ../../base
-patches:
-  - path: deployment.yaml
-  - target:
-      kind: Service
-      name: acme-node
-    patch: |-
-      - op: add
-        path: /spec/selector/environment
-        value: sandbox
-  - target:
-      kind: HTTPRoute
-      name: acme-node-route
-    patch: |-
-      - op: add
-        path: /spec/hostnames/-
-        value: "sandbox.zacdn.net"
-      # - op: add
-      #   path: /spec/hostnames/-
-      #   value: "*.zacdn.net"
-      - op: add
-        path: /metadata/annotations
-        value: {}
-      - op: add
-        path: /metadata/annotations/external-dns.alpha.kubernetes.io~1hostname
-        value: sandbox.zacdn.net
